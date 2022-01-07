@@ -45,17 +45,11 @@ const personnel: Personnel[] = [
 ]
 
 // Want to get the total score of force users only
+// Will do this all back to back
 
-const forceUsers: Personnel[] = personnel.filter((person) => person.isForceUser)
+const totalJediScore: number = personnel
+  .filter((person) => person.isForceUser)
+  .map((person) => person.pilotingScore + person.shootingScore)
+  .reduce((acc, score) => acc + score, 0)
 
-const forceScores: number[] = forceUsers.map(
-  (person) => person.pilotingScore + person.shootingScore
-)
-
-const totalScores: number = forceScores.reduce((acc, score) => acc + score, 0)
-
-console.log('Force users: ', forceUsers)
-
-console.log('Force scores: ', forceScores)
-
-console.log('Total scores: ', totalScores)
+console.log('Total Jedi Score: ', totalJediScore)
