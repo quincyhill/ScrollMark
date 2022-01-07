@@ -1,35 +1,61 @@
-interface Pilot {
+interface Personnel {
   id: number
   name: string
-  faction: string
+  pilotingScore: number
+  shootingScore: number
+  isForceUser: boolean
 }
 
-const pilots: Pilot[] = [
+const personnel: Personnel[] = [
   {
-    id: 2,
-    name: 'Wedge Antilles',
-    faction: 'Rebels',
+    id: 5,
+    name: 'Luke Skywalker',
+    pilotingScore: 98,
+    shootingScore: 56,
+    isForceUser: true,
   },
   {
-    id: 8,
-    name: 'Ciena Ree',
-    faction: 'Empire',
+    id: 82,
+    name: 'Sabine Wren',
+    pilotingScore: 73,
+    shootingScore: 99,
+    isForceUser: false,
   },
   {
-    id: 40,
-    name: 'Iden Versio',
-    faction: 'Empire',
+    id: 22,
+    name: 'Zeb Orellios',
+    pilotingScore: 20,
+    shootingScore: 59,
+    isForceUser: false,
   },
   {
-    id: 66,
-    name: 'Thane Kyrell',
-    faction: 'Rebels',
+    id: 15,
+    name: 'Ezra Bridger',
+    pilotingScore: 43,
+    shootingScore: 67,
+    isForceUser: true,
+  },
+  {
+    id: 11,
+    name: 'Caleb Dume',
+    pilotingScore: 71,
+    shootingScore: 85,
+    isForceUser: true,
   },
 ]
 
-const imperialPilots = pilots.filter((pilot) => pilot.faction === 'Empire')
+// Want to get the total score of force users only
 
-const rebelPilots = pilots.filter((pilot) => pilot.faction === 'Rebels')
+const forceUsers: Personnel[] = personnel.filter((person) => person.isForceUser)
 
-console.log('Imperial Pilots: ', imperialPilots)
-console.log('Rebel Pilots: ', rebelPilots)
+const forceScores: number[] = forceUsers.map(
+  (person) => person.pilotingScore + person.shootingScore
+)
+
+const totalScores: number = forceScores.reduce((acc, score) => acc + score, 0)
+
+console.log('Force users: ', forceUsers)
+
+console.log('Force scores: ', forceScores)
+
+console.log('Total scores: ', totalScores)
