@@ -1,62 +1,35 @@
 interface Pilot {
   id: number
   name: string
-  years: number
+  faction: string
 }
 
 const pilots: Pilot[] = [
   {
-    id: 10,
-    name: 'Poe Dameron',
-    years: 14,
-  },
-  {
     id: 2,
-    name: "Temmin 'Snap' Wexley",
-    years: 30,
+    name: 'Wedge Antilles',
+    faction: 'Rebels',
   },
   {
-    id: 41,
-    name: 'Tallissan Lintra',
-    years: 16,
+    id: 8,
+    name: 'Ciena Ree',
+    faction: 'Empire',
   },
   {
-    id: 99,
-    name: 'Ello Asty',
-    years: 22,
+    id: 40,
+    name: 'Iden Versio',
+    faction: 'Empire',
+  },
+  {
+    id: 66,
+    name: 'Thane Kyrell',
+    faction: 'Rebels',
   },
 ]
 
-const pilotIds = pilots.map(function (pilot) {
-  return pilot.id
-})
+const imperialPilots = pilots.filter((pilot) => pilot.faction === 'Empire')
 
-// Sum the years of the pilots
+const rebelPilots = pilots.filter((pilot) => pilot.faction === 'Rebels')
 
-const totalPilotYears = pilots.reduce((total, pilot) => total + pilot.years, 0)
-
-const oldestPilot = pilots.reduce((prevPilot, pilot) => {
-  return prevPilot.years > pilot.years ? prevPilot : pilot
-}, <Pilot>{})
-
-const youngestPilot = pilots.reduce((prevPilot, pilot) => {
-  return prevPilot.years < pilot.years ? prevPilot : pilot
-}, <Pilot>{})
-
-console.log('Total years of pilots: ', totalPilotYears)
-
-console.log(
-  'Oldest pilot: ',
-  oldestPilot.name,
-  'and they have',
-  oldestPilot.years,
-  'years of experience'
-)
-
-console.log(
-  'Youngest pilot: ',
-  youngestPilot.name,
-  'and they have',
-  youngestPilot.years,
-  'years of experience'
-)
+console.log('Imperial Pilots: ', imperialPilots)
+console.log('Rebel Pilots: ', rebelPilots)
