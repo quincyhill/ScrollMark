@@ -21,5 +21,6 @@
     "32": "images/simple_s32.png",
     "48": "images/simple_s48.png",
     "128": "images/simple_s128.png"
-  }
+  },
+  "options_page": "options.html"
 }
