@@ -1,0 +1,25 @@
+{
+  "name": "ScrollMark",
+  "description": "ScrollMark is a simple extension to save your progress scrolling on site similar to bookmarks",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/simple_s16.png",
+      "32": "images/simple_s32.png",
+      "48": "images/simple_s48.png",
+      "128": "images/simple_s128.png"
+    }
+  },
+  "icons": {
+    "16": "images/simple_s16.png",
+    "32": "images/simple_s32.png",
+    "48": "images/simple_s48.png",
+    "128": "images/simple_s128.png"
+  }
+}
