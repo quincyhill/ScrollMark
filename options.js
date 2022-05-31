@@ -60,3 +60,4 @@ function constructOptions(buttonColors) {
 constructOptions(presetButtonColors)
 
 console.log(colorChoiceDiv)
+// Will update the options eventually, current one makes no sense
