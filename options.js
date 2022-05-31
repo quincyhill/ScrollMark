@@ -1,6 +1,6 @@
-const page = document.querySelector('#page')
+const colorChoiceDiv = document.querySelector('#colorChoiceDiv')
 
-// Here is that current class name
+// Currently selected button
 let selectedClassName = 'current'
 
 const presetButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1']
@@ -19,44 +19,18 @@ function handleButtonClick(event) {
     current.classList.remove(selectedClassName)
   }
 
-  // What is the dataset object?
+  // Dataset object
   let color = event.target.dataset.color
   event.target.classList.add(selectedClassName)
   chrome.storage.sync.set({ color })
 
-  // Create popup that shows the name of the color
-  const popup = document.createElement('div')
-  popup.id = 'mypopup'
-
-  // Place popup at the top of the background page
-  popup.style.position = 'absolute'
-  popup.style.top = '0px'
-  popup.style.left = '0px'
-  popup.style.backgroundColor = 'darkblue'
-  popup.style.color = 'white'
-  popup.style.padding = '10px'
-  popup.style.fontSize = '20px'
-  popup.style.zIndex = '9999'
-  popup.style.fontFamily = 'sans-serif'
-  popup.style.textAlign = 'center'
-  popup.style.width = '100%'
-  popup.style.height = '100%'
-  popup.style.display = 'flex'
-  popup.style.alignItems = 'center'
-  popup.style.justifyContent = 'center'
-  popup.innerText = color
-  document.body.appendChild(popup)
-
-  console.log('hellllllllllllloooooo cheyyenne')
-
-  // Remove the popup after 3 seconds
-  setTimeout(() => {
-    document.body.removeChild(popup)
-  }, 3000)
+  // Update current color selection
+  document.querySelector('#buttonChoice').innerText = color
 }
 
 // Add a button to the page for each supplied color
 function constructOptions(buttonColors) {
+  // this shit is not working...
   chrome.storage.sync.get('color', (data) => {
     let currentColor = data.color
     for (let buttonColor of buttonColors) {
@@ -66,6 +40,8 @@ function constructOptions(buttonColors) {
       // This changes the color in the dataset
       button.dataset.color = buttonColor
       button.style.backgroundColor = buttonColor
+      // Add classname to the button
+      button.classList.add('button__colorPick')
 
       // Mark the currently selected color
       if (buttonColor === currentColor) {
@@ -74,10 +50,13 @@ function constructOptions(buttonColors) {
 
       // Register a listener for when the button is clicked
       button.addEventListener('click', handleButtonClick, false)
-      page.appendChild(button)
+
+      colorChoiceDiv.appendChild(button)
     }
   })
 }
 
 // Initialize the page by constructing the color options
 constructOptions(presetButtonColors)
+
+console.log(colorChoiceDiv)

@@ -14,7 +14,7 @@
   padding-left: 1rem;
 }
 
-button {
+.button__colorPick {
   height: 4rem;
   width: 4rem;
   outline: none;
@@ -23,6 +23,6 @@ button {
   border-radius: 2px;
 }
 
-button.current {
+.button__colorPick.current {
   box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }

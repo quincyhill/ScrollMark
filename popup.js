@@ -1,5 +1,5 @@
 // when the button is clicked, inject setPageBackgroundColor to current page
-let changeColor = document.getElementById('changeColor')
+let changeColor = document.querySelector('#changeColor')
 
 chrome.storage.sync.get('color', ({ color }) => {
   changeColor.style.backgroundColor = color
@@ -25,46 +25,59 @@ function setPageBackgroundColor(color) {
   })
 
   function createPopup() {
-    // Create popup that shows the name of the color
-    const popup = document.createElement('div')
-    popup.className = 'popup'
-    popup.style.position = 'absolute'
-    popup.style.top = '0px'
-    popup.style.left = '0px'
-    popup.style.color = 'white'
-    popup.style.padding = '10px'
-    popup.style.zIndex = '9999'
-    popup.style.textAlign = 'center'
-    popup.style.width = '100%'
-    popup.style.height = '4rem'
-    popup.style.display = 'flex'
-    popup.style.justifyContent = 'center'
-    popup.style.backgroundColor = 'rgba(0,0,0,0.5)'
-
-    // Place popup at the top of the background page
-    popup.innerText = color
-
-    return popup
+    // Create overlay that shows the name of the color
+    const overlay = document.createElement('div')
+    overlay.className = 'popup'
+    // lets see if this will keep it up top
+    overlay.style.position = 'fixed'
+    overlay.style.top = '0px'
+    overlay.style.left = '0px'
+    overlay.style.color = 'white'
+    overlay.style.padding = '10px'
+    overlay.style.zIndex = '9999'
+    overlay.style.textAlign = 'center'
+    overlay.style.width = '100%'
+    overlay.style.height = '4rem'
+    overlay.style.display = 'flex'
+    overlay.style.justifyContent = 'center'
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.5)'
+    // Place overlay at the top of the background page
+    overlay.innerText = color
+    return overlay
   }
 
-  const popup = createPopup()
-  document.body.appendChild(popup)
+  function updatePopup() {
+    // Update the overlay with the current scroll percentage
+    const scrollPercentage = getScrollPercentage()
+    const formattedPercentage = `${Math.round(scrollPercentage * 100)}%`
+    overlay.innerText = formattedPercentage
+    console.log(document.querySelector('#popupScrollPercentage'))
+  }
 
-  console.log('hellllllllllllloooooo cheyyenne')
+  // Create a function that lets the user know how far down the page they are
+  function getScrollPercentage() {
+    // EZ werk
+    const doc = document.documentElement
+    const win = window
+    return (
+      (doc.scrollTop || win.pageYOffset || doc.clientTop) /
+      (doc.scrollHeight || win.pageYOffset || doc.clientHeight || 1)
+    )
+  }
 
-  // Remove pop on click of the popup
-  popup.addEventListener('click', () => {
-    document.body.removeChild(popup)
+  const overlay = createPopup()
+
+  document.body.appendChild(overlay)
+
+  console.log('hellooo')
+
+  // Remove pop on click of the overlay
+  overlay.addEventListener('click', () => {
+    document.body.removeChild(overlay)
   })
-}
 
-// Create a function that lets the user know how far down the page they are
-function getScrollPercentage() {
-  // EZ werk
-  const doc = document.documentElement
-  const win = window
-  return (
-    (doc.scrollTop || win.pageYOffset || doc.clientTop) /
-    (doc.scrollHeight || win.pageYOffset || doc.clientHeight || 1)
-  )
+  // Add scroll listener to the page
+  window.addEventListener('scroll', () => {
+    updatePopup()
+  })
 }
