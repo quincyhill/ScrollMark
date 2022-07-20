@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+/* This projet will just use BEM */
+/* Popup */
+
+/* Options */
 .nav-section {
   background-color: lightgray;
   height: 3rem;
